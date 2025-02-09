@@ -15,7 +15,7 @@ export default function ScrollVideo() {
   const [canvasHeight, setCanvasHeight] = useState<number>(1080); // État pour la hauteur du canvas
 
   useEffect(() => {
-    setCanvasHeight(window.innerHeight-(window.innerHeight/1000)); // Ajuster la hauteur du canvas à la hauteur de la fenêtre
+    setCanvasHeight(window.innerHeight); // Ajuster la hauteur du canvas à la hauteur de la fenêtre
     const loadedImages: HTMLImageElement[] = [];
     let loadedCount = 0;
 
@@ -28,19 +28,18 @@ export default function ScrollVideo() {
         loadedCount++;
         loadedImages.push(img);
 
-        // Vérifier si toutes les images sont chargées
         if (loadedCount === frameCount) {
-          images.current = loadedImages;
-          setIsImagesLoaded(true); // Toutes les images sont chargées
-          renderImage(0); // Afficher la première image une fois chargée
+          images.current = loadedImages.sort((a, b) => {
+            const numA = parseInt(a.src.match(/\d+/)?.[0] || "0", 10);
+            const numB = parseInt(b.src.match(/\d+/)?.[0] || "0", 10);
+            return numA - numB;
+          });
+
+          setIsImagesLoaded(true);
+          renderImage(0);
         }
       };
 
-      // En cas d'erreur de chargement, afficher une erreur dans la console
-      img.onerror = () => {
-        console.error(`Erreur de chargement de l'image : ${img.src}`);
-        setError(`Erreur de chargement de l'image : ${img.src}`);
-      };
     }
   }, []);
 
@@ -55,58 +54,54 @@ export default function ScrollVideo() {
 
 
   const renderImage = (index: number) => {
-    if (context.current && images.current[index]) {
-      const img = images.current[index];
-      const canvasWidth = canvasRef.current!.width;
-      const canvasHeight = canvasRef.current!.height;
+    if (!context.current || !images.current[index]) return;
 
-      // Calculer les nouvelles dimensions pour l'image avec un object-fit "cover"
-      const aspectRatio = img.width / img.height;
-      const newHeight = canvasHeight;
-      const newWidth = newHeight * aspectRatio;
+    const img = images.current[index];
 
-      // Ajuster la largeur si nécessaire
-      const offsetX = (newWidth - canvasWidth) / 2;
-
-      context.current.clearRect(0, 0, canvasWidth, canvasHeight);
-      context.current.drawImage(
-        img,
-        -offsetX, // Décalage horizontal pour centrer l'image
-        0,
-        newWidth,
-        newHeight
-      );
-    } else {
-      console.log('Image ou context indisponible');
+    if (!img.complete) {
+      console.warn(`Frame ${index} non encore chargée.`);
+      return;
     }
+
+    const canvasWidth = canvasRef.current!.width;
+    const canvasHeight = canvasRef.current!.height;
+    const aspectRatio = img.width / img.height;
+    const newHeight = canvasHeight;
+    const newWidth = newHeight * aspectRatio;
+    const offsetX = (newWidth - canvasWidth) / 2;
+
+    context.current.clearRect(0, 0, canvasWidth, canvasHeight);
+    context.current.drawImage(img, -offsetX, 0, newWidth, newHeight);
   };
 
-  useEffect(() => {
-    if (!isImagesLoaded) return;
 
-    // Animation avec GSAP et ScrollTrigger
+  useEffect(() => {
+    if (!isImagesLoaded || !canvasRef.current) return;
+
     const scrollTrigger = gsap.to({}, {
-      marginTop: '20px',
       scrollTrigger: {
         trigger: canvasRef.current,
-        start: "top top", // Commence au début du canvas
-        end: "bottom+=100% top", // Fait en sorte que l'animation se termine à la fin du canvas + une certaine distance
-        scrub: 1,  // Plus élevé pour un défilement plus fluide
+        start: "top top",
+        end: "bottom+=100% top",
+        scrub: 1,
         pin: true,
         markers: false,
-        onUpdate: function (self) {
+        onUpdate: (self) => {
           const scrollProgress = self.progress;
-          const frameIndex = Math.floor(scrollProgress * (frameCount - 1));
-          renderImage(frameIndex);
+          const frameIndex = Math.min(Math.floor(scrollProgress * (frameCount - 1)), frameCount - 1);
+
+          if (images.current[frameIndex]?.complete) {
+            renderImage(frameIndex);
+          }
         },
       }
     });
 
     return () => {
-      // Clean up du ScrollTrigger
       scrollTrigger.scrollTrigger?.kill();
     };
   }, [isImagesLoaded]);
+
 
   return (
     <div className="relative w-full" style={{height: `${canvasHeight}px`}}>
