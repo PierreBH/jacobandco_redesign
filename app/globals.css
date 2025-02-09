@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  color: white;
+  background: #010109;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: url("/img/cursor.png"), auto;
+}
+
+/* Styles pour la vidéo */
+.video-background {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+  z-index: -1; /* Assure-toi que la vidéo est en arrière-plan */
+}
+
+/* Conteneur du scroll */
+#container {
+  height: 500vh; /* S'assure qu'il y a suffisamment de hauteur pour faire défiler */
+}
+
+.img-test{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: lighten;
+}
+
+.drop-shadow-glow {
+    filter: drop-shadow(0 0 48px #F4F5FE52);
+}
+
+.glow-effect {
+    text-shadow: 0 0 48px 0 #F4F5FE52;
+}
+
+.glow-effect-btn {
+    box-shadow: 0 0 40px 0 #F4F5FE3D;
+}
+
+.opacity-gradient {
+    -webkit-mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.5) 100%);
+    mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.5) 100%);
+}
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animation-rotate {
+    animation: rotate 60s linear infinite;
+}
+
+.bg-primary-image{
+    background-image: url('/img/background.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.glow-effect-svg {
+    filter: drop-shadow(0 0 35px rgba(244, 245, 254, 0.32));
+}
+
+.glow-effect-first-watch {
+    filter: drop-shadow(0 0 35px rgba(16, 42, 114, 1));
+}
+
+.glow-effect-second-watch {
+    filter: drop-shadow(0 0 35px rgba(99, 0, 7, 1));
+}
+
+.glow-effect-third-watch {
+    filter: drop-shadow(0 0 35px rgba(7, 90, 35, 1));
+}
+
+.bg-secondary-image{
+    background-image: url('/img/background2.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.gps-container {
+    width: 20px;
+    height: 20px;
+}
+
+.gps-dot {
+    width: 20px;
+    height: 20px;
+    background-color: #FFD700;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #FFD700;
+    position: absolute;
+}
+
+.gps-dot::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 215, 0, 0.4);
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
