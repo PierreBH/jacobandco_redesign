@@ -103,6 +103,18 @@ body {
     position: absolute;
 }
 
+.fixed-container {
+    position: fixed;
+    width: calc(100vw - 40px);
+    height: calc(100vh - 40px);
+    z-index: 50; /* S'assure qu'il est au-dessus des autres éléments */
+    pointer-events: none; /* Empêche d'interférer avec d'autres éléments cliquables */
+}
+
+.fixed-container * {
+    pointer-events: auto; /* Réactive les interactions sur les enfants */
+}
+
 .gps-dot::after {
     content: "";
     position: absolute;
