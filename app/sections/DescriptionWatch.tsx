@@ -137,10 +137,7 @@ export default function DescriptionWatch() {
       <div className={"w-[80vw] h-full mx-auto flex justify-center"}>
         <img src={"/img/descriptionwatch/first_watch.png"} alt={"watch"}
              className={"w-fit max-w-[50vw] top-0 h-fit mix-blend-lighten absolute"} ref={imgRef}/>
-        <div
-          className={"text-[#FFD700] w-[40px] h-[40px] border-[#FFD700] font-body flex items-center justify-center rounded-full border-[1px] relative"}>
-          <span className={"absolute"}>01</span>
-        </div>
+
         <div className={"h-full w-full flex justify-start items-center absolute top-[20vh]"}>
           <img src={"/img/mars_planet.png"} alt={"planet"} className={"mix-blend-lighten"}/>
 
