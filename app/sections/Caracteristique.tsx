@@ -49,25 +49,47 @@ export default function Caracteristique() {
       />
       {isAtBottom && (
         <div>
-          {[
-            { id: 1, bottom: "15vh", translateX: "5vw",  isNegative:true, text: "Calibre Jcam56" },
-            { id: 2, bottom: "25vh", translateX: "15vw", isNegative:true, text: "13.75 mm de hauteur" },
-            { id: 3, bottom: "25vh", translateX: "10vw", isNegative:false,text: "552 composants" },
-          ].map(({ id, bottom, translateX,isNegative, text }) => (
-            <div
-              key={id}
-              className={`gps-container absolute bottom-[${bottom}] ${isNegative ? '-' : ''}translate-x-[${translateX}] z-10`}
-              onMouseEnter={() => setHoveredPoint(id)}
-              onMouseLeave={() => setHoveredPoint(null)}
-            >
-              <div className="gps-dot"></div>
-              {hoveredPoint === id && (
-                <div className="absolute left-1/2 font-body px-5 w-[350px] uppercase text-xl text-[#FFD700] bottom-[-5px]">
-                  {text}
-                </div>
-              )}
-            </div>
-          ))}
+          <div
+            key={1}
+            className="gps-container absolute bottom-[15vh] -translate-x-[5vw] z-10"
+            onMouseEnter={() => setHoveredPoint(1)}
+            onMouseLeave={() => setHoveredPoint(null)}
+          >
+            <div className="gps-dot"></div>
+            {hoveredPoint === 1 && (
+              <div className="absolute left-1/2 font-body px-5 w-[350px] uppercase text-xl text-[#FFD700] bottom-[-5px]">
+                Calibre Jcam56
+              </div>
+            )}
+          </div>
+
+          <div
+            key={2}
+            className="gps-container absolute bottom-[25vh] -translate-x-[15vw] z-10"
+            onMouseEnter={() => setHoveredPoint(2)}
+            onMouseLeave={() => setHoveredPoint(null)}
+          >
+            <div className="gps-dot"></div>
+            {hoveredPoint === 2 && (
+              <div className="absolute left-1/2 font-body px-5 w-[350px] uppercase text-xl text-[#FFD700] bottom-[-5px]">
+                13.75 mm de hauteur
+              </div>
+            )}
+          </div>
+
+          <div
+            key={3}
+            className="gps-container absolute bottom-[25vh] translate-x-[10vw] z-10"
+            onMouseEnter={() => setHoveredPoint(3)}
+            onMouseLeave={() => setHoveredPoint(null)}
+          >
+            <div className="gps-dot"></div>
+            {hoveredPoint === 3 && (
+              <div className="absolute left-1/2 font-body px-5 w-[350px] uppercase text-xl text-[#FFD700] bottom-[-5px]">
+                552 composants
+              </div>
+            )}
+          </div>
         </div>
       )}
       <h2
