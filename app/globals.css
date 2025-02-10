@@ -6,7 +6,7 @@ body {
   color: white;
   background: #010109;
   font-family: Arial, Helvetica, sans-serif;
-  cursor: url("/img/cursor.png"), auto;
+  cursor: url("/img/cursor.svg"), auto;
 }
 
 /* Styles pour la vidéo */
@@ -107,7 +107,7 @@ body {
     position: fixed;
     width: calc(100vw - 40px);
     height: calc(100vh - 40px);
-    z-index: 50; /* S'assure qu'il est au-dessus des autres éléments */
+    z-index: 0; /* S'assure qu'il est au-dessus des autres éléments */
     pointer-events: none; /* Empêche d'interférer avec d'autres éléments cliquables */
 }
 

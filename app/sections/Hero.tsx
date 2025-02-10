@@ -24,7 +24,7 @@ export default function Hero() {
 
       <div className="fixed-container w-[calc(100vw_-_40px)] flex justify-center h-[calc(100vh_-_40px)]">
         {/* Contour pointillé */}
-        <div className={"absolute z-10 w-full h-full"}>
+        <div className={"absolute w-full h-full"}>
           <div className={"flex justify-between my-5 px-5 w-full"}>
             <img src={"/logo_full.svg"} alt={"logo"} className={"w-full max-w-[200px] my-auto left-0"}/>
             <div className={"flex items-center gap-8"}>
