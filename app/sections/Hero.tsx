@@ -1,8 +1,16 @@
 'use client';
 
 import Meteors from "@/app/components/Meteors";
+import {useEffect, useState} from "react";
 
 export default function Hero() {
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    setWidth(window.innerWidth);
+    window.addEventListener("resize", () => setWidth(window.innerWidth));
+  }, []);
+
   return (
     <div className={"w-screen h-screen flex justify-center items-center overflow-hidden relative"}>
       <img src={"/img/background_hero.png"} alt={"logo"}
@@ -24,7 +32,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <Meteors />
+      <Meteors width={width} />
 
       <div className="fixed-container w-[calc(100vw_-_40px)] flex justify-center h-[calc(100vh_-_40px)]">
         {/* Contour pointillé */}

@@ -1,15 +1,11 @@
 import {cn} from "@/app/lib/Utils";
 
-export default function Meteors ({
-                          number,
-                          className,
-                        }: {
+export default function Meteors ({number, className, width}: {
   number?: number;
   className?: string;
+  width: number;
 }) {
   const meteors = new Array(number || 20).fill(true);
-  const viewportWidth = window.innerWidth;
-  const viewportHeight = window.innerHeight;
   return (
     <div className={cn("absolute top-0 left-0 w-full h-full")}>
       {meteors.map((el, idx) => (
@@ -22,7 +18,7 @@ export default function Meteors ({
           )}
           style={{
             top: 0,
-            left: Math.floor(Math.random() * viewportWidth) + "px",
+            left: Math.floor(Math.random() * width) + "px",
             animationDelay: Math.random() * (0.8 - 0.2) + 0.2 + "s",
             animationDuration: Math.floor(Math.random() * (10 - 2) + 2) + "s",
           }}
