@@ -1,4 +1,6 @@
-"use client";
+'use client';
+
+import Meteors from "@/app/components/Meteors";
 
 export default function Hero() {
   return (
@@ -21,6 +23,8 @@ export default function Hero() {
             className={"leading-tight font-titleItalic tracking-wider text-[4vw] text-transparent bg-gradient-to-b from-[#384AF8] to-[#384AF8]/10 bg-clip-text"}>Regulator</h4>
         </div>
       </div>
+
+      <Meteors />
 
       <div className="fixed-container w-[calc(100vw_-_40px)] flex justify-center h-[calc(100vh_-_40px)]">
         {/* Contour pointillé */}
